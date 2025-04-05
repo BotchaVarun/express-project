@@ -2,7 +2,7 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
-
+const path=require('path');
 const app = express();
 app.use(bodyParser.json());
 
@@ -54,7 +54,9 @@ app.post('/api/add', async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
-
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 // 🔁 Vercel export
 module.exports = app;
 module.exports.handler = (req, res) => app(req, res);
