@@ -60,7 +60,7 @@ app.get('/users/:fullname',bodyparser.json(),async(req,res)=>{
     const db = client.db('meghana');
     const users = db.collection('users');
     const user=await users.find({email:req.params.fullname});
-      if(!users)
+      if(!user)
       {
           return res.status(404).json({message:"user not found"});
       }
