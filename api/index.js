@@ -54,6 +54,23 @@ app.post('/api/add', async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
+app.get('/users/:fullname',bodyparser.json(),async(req,res)=>{
+    try{
+    await client.connect();
+    const db = client.db('meghana');
+    const users = db.collection('users');
+    const user=await users.find({fullname:req.params.fullname});
+      if(!users)
+      {
+          return res.status(404).json({message:"user not found"});
+      }
+      res.status(200).json(users);
+    }
+    catch(err)
+    {
+      res.status(500).json({message:"error"});
+    }
+  })
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
