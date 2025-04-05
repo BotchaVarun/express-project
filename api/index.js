@@ -11,7 +11,7 @@ async function connectToMongo() {
     client = new MongoClient(uri);
     await client.connect();
   }
-  return client.db('your-db-name'); // change this
+  return client.db('express'); // change this
 }
 
 app.get('/api/hello', async (req, res) => {
